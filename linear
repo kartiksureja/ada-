@@ -1,0 +1,63 @@
+//doing linear search and its analysis in best,avg and worst conditions
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+int count;
+int n=10;
+//search function
+void search(int k, int a[]){
+count=0;
+int i;
+for(i=0;i<n;i++){
+count++;
+if(a[i]==k){
+//printf("Key present at location %d\n",i+1);
+return ;
+}
+}
+}
+
+int main(){
+FILE *fp1,*fp2,fp3;//three file pointers for three cases:best,avg,worst
+int a;
+//clears files every time anybody runs and executes the programs
+system("rm l_best.txt");
+system("rm l_worst.txt");
+system("rm l_avg.txt");
+//open all the files in append mode so that for every iteration the contents get added up not overwritten
+fp1=fopen("l_best.txt","a");
+fp2=fopen("l_worst.txt","a");
+fp3=fopen("l_avg.txt","a");
+srand(time(0));
+//range for random inputs to be in [lower,upper]
+int lower=1000;
+int upper=2000;
+int key,i;
+for(n=10;n<100;n=n+10){
+a=(int)malloc(nsizeof(int));
+i=0;
+while(i!=n){
+a[i]=(rand()%(upper-lower+1))+lower;
+printf("%d ",a[i]);
+i++;
+}
+//best case
+key=a[0];
+search(key,a);
+fprintf(fp1,"%d\t%d\n",n,count);
+
+    //worst case
+    key=a[n-1];
+    search(key,a);
+    fprintf(fp2,"%d\t%d\n",n,count);
+
+    //average case
+    key=a[n/2];
+    search(key,a);
+    fprintf(fp3,"%d\t%d\n",n,count);
+}
+fclose(fp1);
+fclose(fp2);
+fclose(fp3);
+return 0;
+}
