@@ -1,0 +1,81 @@
+//doing binary search and its analysis in best,avg and worst conditions
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+int count;
+int n=10;
+//search function
+void search(int k, int a[]){
+
+int f=0;
+int l=n-1;
+int m;
+count=0;
+while(f<=l)
+{ m=(f+l)/2;
+count++;
+if(a[m]==k)
+{
+// printf("Count=%d\n",count);
+// printf("found at positon %d\n",m+1);
+return;
+}
+else if(a[m]<k)
+{
+f=m+1;
+}
+else
+{
+l=m-1;
+}
+
+}
+/*if(f>l)
+{
+printf("\nElement not found\n");
+printf("Count=%d\n",count);
+*/
+}
+
+int main(){
+FILE *fp1,*fp2,fp3;//three file pointers for three cases:best,avg,worst
+int a;
+//clears files every time anybody runs and executes the programs
+system("rm b_best.txt");
+system("rm b_worst.txt");
+system("rm b_avg.txt");
+//open all the files in append mode so that for every iteration the contents get added up not overwritten
+fp1=fopen("b_best.txt","a");
+fp2=fopen("b_worst.txt","a");
+fp3=fopen("b_avg.txt","a");
+srand(time(0));
+int lower=1000;
+int key,i;
+for(n=10;n<100;n=n+10){
+a=(int)malloc(nsizeof(int));
+i=0;
+while(i!=n){
+a[i]=i+1;
+printf("%d ",a[i]);
+i++;
+}
+//best case
+key=a[(n-1)/2];
+search(key,a);
+fprintf(fp1,"%d\t%d\n",n,count);
+
+    //worst case
+    key=a[0];
+    search(key,a);
+    fprintf(fp2,"%d\t%d\n",n,count);
+
+    //average case
+    key=a[((n-1)/2)-5];
+    search(key,a);
+    fprintf(fp3,"%d\t%d\n",n,count);
+}
+fclose(fp1);
+fclose(fp2);
+fclose(fp3);
+return 0;
+}
